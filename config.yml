@@ -1,0 +1,148 @@
+# ─────────────────────────────────────
+# STRATEGY
+# ─────────────────────────────────────
+strategy:
+  name: "Buy and Hold"
+  version: "1.0"
+
+# ─────────────────────────────────────
+# DATA
+# ─────────────────────────────────────
+data:
+  mode: "portfolio"         # "portfolio" (Nifty 200 universe) or "single" (one symbol)
+  symbol: "^NSEI"           # used in single mode
+  # Benchmark = a dividend-reinvesting Nifty 50 proxy (total-return), so the
+  # comparison is fair vs the strategy's dividend-adjusted prices. NIFTYBEES is
+  # the Nifty 50 ETF (TRI proxy). Fallback only used if the primary has no data.
+  benchmark_symbol: "NIFTYBEES.NS"
+  benchmark_symbol_fallback: "N100.NS"
+  start_date: "2015-01-01"
+  end_date: "2024-12-31"
+  interval: "1d"
+  universe_cache_days: 7    # how long to trust the cached Nifty 200 constituent list
+  min_ticker_bars: 250      # skip tickers with fewer than this many bars
+  universe_limit: null      # cap universe size for testing (null = full universe)
+  # universe_tickers: explicit list overrides the Nifty 200 fetch (null = fetch).
+  universe_tickers: null
+
+# ─────────────────────────────────────
+# CAPITAL & RISK
+# ─────────────────────────────────────
+capital:
+  starting_capital: 1000000   # 10 lakhs INR
+  risk_per_trade: 0.025       # 2.5% portfolio risk
+  max_positions: 6
+  cash_when_idle: true
+
+# ─────────────────────────────────────
+# COSTS
+# ─────────────────────────────────────
+costs:
+  brokerage: 0.001            # 0.1%
+  slippage: 0.0005            # 0.05%
+
+# Risk-free rate and trading-days-per-year live in configs/metrics_config.py
+# (single source of truth for all Sharpe / CAGR maths). Do not re-add them here.
+
+# ─────────────────────────────────────
+# WALK-FORWARD ANALYSIS
+# ─────────────────────────────────────
+wfa:
+  train_years: 3
+  oos_years: 1
+  rolling: true
+  optimize_metric: "sharpe"
+  wfe_robust_threshold: 0.60
+  wfe_acceptable_threshold: 0.40
+  consistency_threshold: 0.70
+  max_params_warning: 3
+  is_sharpe_warning: 3.0
+
+# ─────────────────────────────────────
+# MONTE CARLO
+# ─────────────────────────────────────
+monte_carlo:
+  n_simulations: 5000
+  ruin_threshold: 0.30
+  random_seed: 42
+  min_trades_warning: 30
+
+# ─────────────────────────────────────
+# REGIME ANALYSIS
+# ─────────────────────────────────────
+regime:
+  min_trades: 5
+
+# ─────────────────────────────────────
+# PRE-CHECK
+# ─────────────────────────────────────
+pre_check:
+  min_trades: 30
+  min_win_rate: 0.35
+  min_profit_factor: 1.0
+
+# ─────────────────────────────────────
+# PARAMETER SENSITIVITY
+# ─────────────────────────────────────
+sensitivity:
+  robustness_threshold: 0.20
+  min_trades: 10
+
+# ─────────────────────────────────────
+# STATISTICAL TESTS
+# ─────────────────────────────────────
+stats:
+  significance_level: 0.05
+  permutation_iterations: 10000
+  random_seed: 42
+  min_trades_warning: 30
+
+# ─────────────────────────────────────
+# REGIMES
+# ─────────────────────────────────────
+regimes:
+  - name: "Bull 2017-18"
+    start: "2017-01-01"
+    end: "2018-01-31"
+    type: "bull"
+  - name: "Bear 2018-19"
+    start: "2018-02-01"
+    end: "2019-04-30"
+    type: "bear"
+  - name: "Bull 2019"
+    start: "2019-05-01"
+    end: "2020-01-31"
+    type: "bull"
+  - name: "COVID Crash"
+    start: "2020-02-01"
+    end: "2020-04-30"
+    type: "crash"
+  - name: "COVID Recovery"
+    start: "2020-05-01"
+    end: "2021-10-31"
+    type: "recovery"
+  - name: "Sideways"
+    start: "2021-11-01"
+    end: "2022-06-30"
+    type: "sideways"
+  - name: "Steady Bull"
+    start: "2022-07-01"
+    end: "2024-12-31"
+    type: "bull"
+
+# ─────────────────────────────────────
+# MASTER VERDICT GATES (read by validation/verdict.py — single source of truth)
+# ─────────────────────────────────────
+verdict:
+  consistency_min: 0.60     # min fraction of OOS windows profitable (WFA gate)
+  ror_max: 0.05             # max Monte Carlo reshuffle risk-of-ruin to pass
+  bear_return_min: -0.05    # min avg TOTAL return across bear/crash regimes
+  min_trades: 30            # min OOS trades for a conclusive (non-Tier-0) verdict
+
+# ─────────────────────────────────────
+# REPORTING
+# ─────────────────────────────────────
+reporting:
+  output_dir: "reports"
+  charts_dir: "results/charts"
+  auto_launch_dashboard: true
