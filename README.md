@@ -1,97 +1,85 @@
-# PROJECT-FALSIFY
-Check README for project description - PROJECT FALSIFY is currently under development and codebase is updated weekly. The project will be finished by mid June
-
-Project Falsify
-
-A realistic Indian market trading simulator built to expose fake trading “education” and force strategies to survive real conditions.
+THIS IS PROJECT FALSIFY- A portfolio-level trading simulation and strategy validation framework built to stress-test ideas against real market conditions — not fantasy.
 
 Why I Built This
 
 I’m 15.
 
-After spending months watching Indian trading content online, one thing became obvious:
+After spending nearly a year studying Indian markets, backtesting strategies, and watching the trading education space closely, one thing became obvious:
 
-Most “profitable traders” never show real execution under realistic conditions.
+Most “profitable trading systems” collapse the moment realism enters the equation.
 
 No slippage.
-No latency.
-No liquidity constraints.
-No psychological pressure.
-No proper backtesting.
-Just screenshots, hindsight charts, and course-selling.
+No execution delays.
+No regime shifts.
+No portfolio-level risk.
+No robustness testing.
 
-So instead of buying into that ecosystem, I started building my own simulator.
+Just hindsight charts and perfectly cropped PnL screenshots.
 
-Project Falsify exists to answer one question:
+So instead of consuming more trading content, I started building the infrastructure I wished existed.
 
-Would these strategies survive if markets actually fought back?
+Project Falsify was created to answer a simple question:
+
+Can a strategy survive reality?
 
 ⸻
 
-What It Is
+What Project Falsify Does
 
-Project Falsify is a Python-based trading simulation framework focused on realism over fantasy.
+Falsify is a Python-based quantitative trading research and simulation framework focused on institutional-style validation.
 
-The goal is not to create another pretty charting tool.
+The system currently supports:
 
-The goal is to simulate:
+* Portfolio-level simulations
+* NIFTY 200 stock universe testing
+* Walk Forward Analysis (WFA)
+* Monte Carlo simulations
+* Market regime analysis
+* Parameter sensitivity testing
+* Statistical robustness analysis
+* Advanced trade analytics
+* Risk and exposure tracking
+* Interactive dashboard visualizations
+* Modular strategy testing architecture
 
-* realistic order execution
-* slippage
-* latency
-* portfolio tracking
-* risk exposure
-* strategy evaluation
-* market friction
-* statistical validation
+The platform is designed to intentionally attack weak assumptions and overfit systems.
 
-If a strategy only works in perfect conditions, Falsify should break it.
+If a strategy only works in perfect conditions, Falsify should expose it.
 
 ⸻
 
 Core Philosophy
 
-Most retail backtests are engineered to confirm beliefs.
+Retail trading culture rewards storytelling.
 
-Falsify is engineered to destroy weak assumptions.
+Real trading rewards robustness.
 
 A strategy should survive:
 
-* spread expansion
-* delayed fills
-* volatility spikes
-* overfitting checks
-* emotional decision layers
-* imperfect execution
+* changing market regimes
+* execution friction
+* portfolio correlation
+* parameter instability
+* volatility expansion
+* randomness
+* stress conditions
 
-Otherwise it’s not alpha.
-It’s marketing.
-
-⸻
-
-Current Features
-
-* Historical market replay
-* Strategy testing framework
-* Performance analytics
-* Trade logging
-* Risk metrics
-* Portfolio tracking
-* Modular architecture
-* Python-based research environment
+Otherwise it’s not an edge.
+It’s curve fitting.
 
 ⸻
 
-Planned Features
+Current State
 
-* Advanced slippage engine
-* Simulated broker latency
-* Multi-asset support
-* Options simulation
-* AI-assisted strategy analysis
-* Monte Carlo stress testing
-* Behavioral risk simulation
-* Institutional-style reporting
+The core simulation infrastructure is already functional.
+
+Most ongoing work is now focused on:
+
+* debugging
+* optimization
+* refining execution logic
+* improving simulation realism
+* expanding analytics
 
 ⸻
 
@@ -101,23 +89,17 @@ Tech Stack
 * Pandas
 * NumPy
 * Matplotlib
+* Plotly
 * Jupyter
 * Custom simulation engine
 
 ⸻
 
-Status
+Vision
 
-Early-stage but actively being built.
+Long term, Project Falsify aims to become a full research environment for systematic trading experimentation — combining quantitative analysis, simulation realism, and behavioral stress testing into one framework.
 
-This project started as curiosity, became obsession, and is now turning into a long-term research system.
+Not a guru platform.
+Not a signal-selling business.
 
-⸻
-
-Disclaimer
-
-Project Falsify is an educational/research project.
-
-Nothing here is financial advice.
-Most trading strategies fail.
-That’s the point.
+Just a system designed to pressure-test ideas honestly.
